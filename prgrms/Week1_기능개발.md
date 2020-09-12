@@ -66,3 +66,102 @@ def solution(progresses, speeds):
 - 결과 100 / 100
 - 적용되는 알고리즘에 대한 지식?
 - 파이써닉한 코드?
+
+---
+
+## 코드 리뷰_기능개발
+
+> ### QnA
+>
+> - Q. 알고리즘에 대한 지식이 부족하여 일단 주먹 구구식으로 짜봤는데 혹시 적용 가능한 알고리즘이 존재하는지 궁금합니다.
+>   A . 기능 개발 문제같은 경우 Queue의 특징을 이용하여 푸는 문제입니다. :) 값을 계산하고 맨 앞 요소를 순서대로 제거하는 방식으로 로직을 작성할 수 있습니다. 그렇지만 조금 더 효율적으로 작성한다면 @hminn 님이 작성하신 로직이 더 빠르고 효율적입니다.
+> - Q. for문 내의 개선 방법
+>   A. 기능 개발 문제의 `for` 내부 로직은 배치를 조금 다르게 하는 방법으로 쉽게 개선이 가능합니다. 코드 리뷰를 확인해주세요. :) 
+> - 전체적으로 보자면 Queue의 형태를 사용하여 해결이 가능합니다. 조건이 맞으면 맨 앞의 값부터 빠져나오기 때문에 FIFO의 형태를 가지게됩니다.
+
+> ### 코드리뷰 내용
+>
+> - List() -> [] 로 줄이자.
+>
+>   ```python
+>   days = list(ceil((100 - progress) / speed) for progress, speed in zip(progresses, speeds))
+>   
+>   # 위 부분에서 list 함수를 사용하지 않고 다음과 같이 줄일 수 있다.
+>   
+>   days = [ceil((100 - progress) / speed) for progress, speed in zip(progresses, speeds)]
+>   
+>   ```
+>
+> - for 문의 개선
+>
+>   ```python
+>   from math import ceil
+>   
+>   def solution(progresses, speeds):
+>       days = list(ceil((100 - progress) / speed) for progress, speed in zip(progresses, speeds))
+>       answer = []
+>       
+>       max_day = days[0]
+>       total = 0
+>       
+>       for day in days: 
+>           if max_day < day :
+>               max_day = day
+>               answer.append(total)
+>               total = 0
+>           total += 1
+>   
+>       if total > 0: # 마지막 요소에 대한 처리
+>           answer.append(total)
+>           
+>       return answer
+>   ```
+>
+>   - for 문 내에서 조건을 줄이기 위해서는 일관된 로직이 중요하다.
+>   - 여러 개의 조건을 넣는 것보다 하나의 방법으로 전체 조건을  어우를 수 있는 조건을 생각해볼 것.
+
+> ### Leader's Code
+>
+> ```python
+> # O(n) 풀이
+> 
+> from math import ceil
+> 
+> def solution(progresses, speeds):
+>     answer = []
+>     max_duration = ceil((100 - progresses[0]) / speeds[0])
+>     count = 0
+> 
+>     for progress, speed in zip(progresses, speeds):
+>         duration = ceil((100 - progress) / speed)
+>         # duration = -(-(100 - progress) // speed) # 이런식으로도 가능합니다.
+>         if max_duration < duration:
+>             answer.append(count)
+>             count = 0
+>             max_duration = duration
+>         count += 1
+> 
+>     if count > 0:
+>         answer.append(count)
+> 
+>     return answer
+> ```
+>
+> ```python
+> # 리스트의 특성을 이용한 풀이
+> 
+> from math import ceil
+> 
+> def solution(progresses, speeds):
+>     answer = [[ceil((100 - progresses[0]) / speeds[0]), 0]]
+> 
+>     for progress, speed in zip(progresses, speeds):
+>         duration = ceil((100 - progress) / speed)
+>         if answer[-1][0] < duration:
+>             answer.append([duration, 0])
+>         answer[-1][1] += 1
+> 
+>     return [count for _, count in answer]
+> ```
+>
+> 
