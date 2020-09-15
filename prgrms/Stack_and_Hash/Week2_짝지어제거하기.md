@@ -37,15 +37,81 @@
 ```python
 def solution(s):
     stack = [s[0]]
+    
     for i in s[1:]:
         if stack[-1:] == [i] :
             stack.pop()
         else :
             stack.append(i)
+            
     return int(stack == [])
 ```
 
 ---
+
+### 코드리뷰
+
+> 리더 曰
+
+- 조건을 `stack[-1] == i`로 할 수 있습니다. :)
+
+- 조건과 `:` 사이는 붙이는 것이 좋습니다. :)
+
+- 다음과 같이 정리 할 수 있습니다.
+
+  ```python
+  def solution(s):
+      stack = []
+  
+      for i in s:
+          if stack[-1] == i:
+              stack.pop()
+          else :
+              stack.append(i)
+  
+      return int(stack == []) 
+  ```
+
+- 이 경우 코드의 깔끔함을 위해 다음과 같이 추가 조건을 넣어주는게 좋을 것 같습니다. :)
+
+  ```python
+  def solution(s):
+      stack = []
+  
+      for i in s:
+          if stack and stack[-1] == i:
+              stack.pop()
+          else :
+              stack.append(i)
+  
+      return int(stac]k == []) 
+  ```
+
+> 自
+
+- 리더님 코드에서, stack이 빈리스트일 경우 for 문의 첫 시행에서 IndexError 발생.
+
+- 다음과 같이 try - except 구문을 이용하여 수정해보았음.
+
+  ```python
+  def solution(s):
+      stack = []
+      
+      for i in s:
+          try :
+              if stack[-1] == i:
+                  stack.pop()
+              else :
+                  stack.append(i)
+          except IndexError:
+              stack.append(i)
+              
+      return int(stack == [])
+  ```
+
+- 리더님께서 수정해주신 코드를 봤을 때, 훨씬 더 간결하고 깔끔한 느낌이 든다.
+
+- 어거지로 끼워맞추는 식의 코드보다는, 그것들을 관통하는 조건들을 찾아 넣어주도록 하자!
 
 
 

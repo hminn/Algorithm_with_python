@@ -81,15 +81,42 @@ def solution(s):
 
 ---
 
+### 코드리뷰
+
+> 리더 曰
+
+- 조건에 괄호를 제거하시는 것이 좀 더 python스럽습니다. :)
+
+- 조건을 `while stack and stack[-1:] < [i]:`로 수정하면 하단 `if`를 제거할 수 있습니다. :)
+
+- 조건을 `stack[-1] < i`로 수정 가능합니다. :)
+
+- 다음처럼 작성할 수도 있습니다. :)
+
+  ```python
+  def solution(s):
+      stack = []
+  
+      for i in s:
+          while stack and stack[-1] < i:
+              stack.pop()
+          stack.append(i)
+  
+      return ''.join(stack) 
+  ```
+
+---
+
 ### Check Point
 
 > 1. combinations 는 itertools 모듈의 함수이다.
 > 2. 문자열 연산 vs 리스트 pop, append 시간복잡도?
 > 3. 조금이라도 더 시간을 줄일 수는 없는지 계속 Check!
+> 4. Looping 시, stack이 비어 있을 경우에 해당하는 조건을 추가!
 
 ---
 
-
+### 
 
 ### 참고 자료
 
