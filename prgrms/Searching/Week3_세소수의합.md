@@ -80,3 +80,4 @@ def solution(n):
 - [에라토스테네스의 체 - 확장 및 응용](https://velog.io/@joygoround/test-unsolved-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%AC)
 
 - [에라토스테네스의 체 - 기본](https://leedakyeong.tistory.com/entry/python-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0-%EC%97%90%EB%9D%BC%ED%86%A0%EC%8A%A4%ED%85%8C%EB%84%A4%EC%8A%A4%EC%9D%98-%EC%B2%B4)
+
