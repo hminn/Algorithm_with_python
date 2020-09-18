@@ -92,12 +92,44 @@ def solution(board, nums):
 
 ---
 
-### 코드 리뷰
 
-> #### QnA
+
+## 라이브 코딩
+
+### 문제 핵심 파악
+
+> 1. 요소가 선택되었는지 확인하는 것을 O(1)로 푸는 것이 핵심
 >
-> - Q. h, v, c와 같은 변수들을 생성하지 않고 풀이를 진행할 수 있는 방법이 있을까요?
->   A. 빙고 문제의 경우 어쩔 수 없이 변수를 선언해야 합니다. :) 이런 경우에는 변수 이름을 잘 짓는 것이 중요합니다. `h, v, c` 대신 조금 더 명확한 이름을 짓는다면 가독성에 더 좋을 것 같습니다.
+>    : set, dict 와 같은 해시 형태 탐색
+
+### Leader's Code
+
+```python
+def solution(board, nums):
+    N = len(board)
+    nums = set(nums)
+    row_check = [0] * N
+    col_check = [0] * N
+    left_diagonal = 0
+    right_diagonal = 0
+    
+    
+    for i in range(N):
+        for j in range(N):
+            if board[i][j] in nums: # nums가 set 자료형이므로 in 연산이 O(1)
+                board[i][j] = 0
+                row_check[i] += 1
+                col_check[j] += 1
+                
+                if i == j:
+                    left_diagonal += 1
+                if i + j == N - 1:
+                    right_diagonal += 1
+                    
+	answer = 0
+    answer += len([1 for x in row_check if x == N]) 
+    answer += len([1 for x in col_check if x == N])
+```
 
 
 

@@ -67,5 +67,38 @@ def solution(dirs):
 
 
 
+## 라이브 코딩
+
+
+
+### Leader's Code
+
+```python
+# 이동한 경로를 O(1)로 탐색하는 것이 핵심
+# O(1)만에 탐색을 하려면 무조건 Hash Table
+# Hash Table => dict, set
+
+def solution(dirs):
+    position= (0, 0) # 시작좌표
+    command_dict = {'U':(0, 1), 'L':(-1, 0), 'R': (1, 0), 'D':(0, -1)}
+    check = set()
+    
+    for command in dirs:
+        directions = command_dict[command]
+        next_position = tuple(map(sum, zip(position, directions)))
+        
+        y, x = next_position
+        if -5 <= y <= 5 and -5 <= x <= 5:
+            check.add(tuple(sorted([position, next_position])))
+            position = next_position
+            
+    return len(check)
+```
+
+- 굳이 탐색을 하지 않더라도 동일한 로직으로 계속 더해도 상관없다 (Hash Table)
+  : set 은 어차피 중복이 제거된다.
+- `tuple(map(sum, zip(position, directions)))`
+  : 각 같은 자리의 요소를 더하거나 뺄 때 위와 같이 zip 을 이용하여 풀이를 할 수도 있다.
+
 ### 참고 자료
 
