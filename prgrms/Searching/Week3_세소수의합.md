@@ -75,6 +75,40 @@ def solution(n):
 
 
 
+### 코드 리뷰
+
+> - 사실상 이 문제는 완전 탐색 알고리즘입니다.
+> - 파이썬에서는 순열과 조합을 쉽게 구할 수 있는 모듈을 제공하기 때문에 이런 문제의 경우 적극적으로 활용할 수 있습니다. : )
+>
+> - itertools 모듈의 조합 함수를 이용하면 다음과 같이 간결하게 작성가능하다.
+>
+> ```python
+> from itertools import combinations
+> 
+> def eratosthenes(n):
+>     # n 보다 작은 소수 구하기
+>     sieve = [True for _ in range(n)]
+> 
+>     sqrt_n = int(n ** 0.5)
+>     for i in range(2, sqrt_n + 1):
+>         if sieve[i] == True:
+>             for j in range(i * 2, n, i):
+>                 sieve[j] = False
+> 
+>     return [i for i in range(2, n) if sieve[i] == True]
+> 
+> def solution(n):
+>     return [sum(c) for c in combinations(eratosthenes(n), 3)].count(n)
+> ```
+>
+> ### Check_point (스스로 점검)
+>
+> - 훨씬 더 간결하긴 하나, 원래의 풀이가 시간복잡도는 더 좋다.
+> - 원래의 풀이처럼 루프를 돌려가며 하는 방법의 아이디어도 나중에 구현 문제를 풀어낼 때 많은 도움이 될 것이기에 너무 모듈에 의존하지 말자!
+> - 하지만 효율성 테스트가 존재하지 않는 문제에 대해서는 위와 같이 깔끔하게 풀어 시간을 줄이자.
+
+
+
 ### 참고 자료
 
 - [에라토스테네스의 체 - 확장 및 응용](https://velog.io/@joygoround/test-unsolved-%EC%86%8C%EC%88%98-%EC%B0%BE%EA%B8%B0-%ED%8C%8C%EC%9D%B4%EC%8D%AC)

@@ -55,5 +55,26 @@ def solution(brown, red):
 
 ---
 
-### 참고 자료
 
+
+### 코드 리뷰
+
+>- 미리 후보군에 해당하는 수들의 List를 만들지 않고,
+>  '검사 + 숫자 조정' 의 역할을 모두 하는 Loop를 만들면 훨씬 더 깔끔하다.
+>- 다음의 코드를 보며 느껴보자.
+>
+>```python
+>def solution(brown, red):
+>    # width, height의 초기값을 설정해준다.
+>    width = (brown + red) // 3 # width의 최댓값
+>    height = 3 # height 의 최솟값
+>
+>    # 후보가 될 수 있는 값들을 가지고 Loop를 돌린다.
+>    # 조건을 만족하면 바로 빠져나온다.
+>    while (width - 2) * (height - 2) != red:
+>        width -= 1 # width를 하나씩 줄여가며 검사한다.
+>        height = (brown + red) // width # width가 줄면 height은 증가
+>	return [width, height]
+>```
+>
+>- 위의 코드가 훨씬 깔끔하고 직관적으로도 더 와닿는다.

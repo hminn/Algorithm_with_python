@@ -60,5 +60,34 @@ def solution(m, weights):
 
 
 
+### 코드리뷰
+
+> ### Leader's said
+>
+> - `lst = [sum(nums) for nums in combinations(weights, i)]`, `lst = list(map(sum, combinations(weights, i)))` 과 같은 코드는 취향의 영역입니다.
+> - 저 같은 경우 단순 타입 변환의 경우 map을 선호하고 필터링, 변환의 경우 `list comprehension`을 선호합니다. 물론 예외는 있습니다. 이 문제의 경우 저였다면 후자의 방식을 더 선호했을 겁니다.
+> - 이 문제의 경우, 단순히 경우의 수만 구하면 되기 때문에 defaultdict를 사용하지 않아도 된다.
+>
+> ```python
+> from itertools import combinations
+> 
+> def solution(m, weights):
+> 	answer = 0
+>     for i in range(1, len(weights) + 1):
+>         lst = [sum(nums) for nums in combinations(weights, i)]
+>         answer += lst.count(m)
+> 
+>     return answer
+> ```
+>
+> ### Check_point (스스로 점검)
+>
+> - 열심히 코딩을 진행해나가며 `list-map` 과 `list comprehension` 중 선호하는 부분을 찾아 나가자! (되도록이면 간결하게 사용할 수 있는 쪽을 지향하자)
+> - 코드의 길이는 물론, 넓이도 줄여나가는 연습을 많이하자.
+>   굳이 필요하지 않는 모듈까지 끌어와서 쓰는 건 매우 비효율적.
+> - 간단하고 쉽게 생각하는 연습을 하자.
+
+
+
 ### 참고 자료
 

@@ -62,5 +62,45 @@ def solution(monster, S1, S2, S3):
 
 
 
+### 코드리뷰
+
+> ### Leader's said
+>
+> - 조합, 순열은 파이썬에서 유리한 부분이기 때문에 최대한 모듈을 잘 활용하는 것이 좋습니다. 한 번 `product'를 사용해서 이 문제를 풀어보세요.
+>
+> ### Check_point (스스로 점검)
+>
+> ```python
+> from itertools import product
+> 
+> def solution(monster, S1, S2, S3):
+>     dice = []
+>     monster = set(monster)
+>     
+>     for i in [S1, S2, S3]:
+>         dice.append([j for j in range(1, i + 1)])
+>     
+>     sum_dice = list(map(sum, product(dice[0], dice[1], dice[2])))
+>     case = sum([1 for i in sum_dice if i + 1 not in monster])
+>                     
+>     return int((case / len(sum_dice)) * 1000)
+> ```
+>
+> - product는 리스트들의 곱집합을 구해주는 메소드다.
+>   (from itertools)
+>   곱집합이란 다음의 예시를 보면 알 수 있다.
+>
+>   ````python
+>   a = [1, 2]
+>   b = [3, 4, 5]
+>   
+>   list(product(a, b))
+>   
+>   # [(1,3), (1,4), (1,5), (2,3), (2,4), (2,5)]
+>   ````
+>
+> - 순열, 조합 문제는 되도록이면 python 모듈을 이용하도록 하자!
+
 ### 참고 자료
 
+- [곱집합(Cartesian product) 구하기 : product](https://programmers.co.kr/learn/courses/4008/lessons/12835)
